@@ -14,9 +14,9 @@ function love.load()
 
   for i = 1, #curves do
     if i % 2 == 0 then
-      roads[i] = BezierMesh:new(curves[i], love.graphics.newImage("road.png"), resolution)
+      roads[i] = BezierMesh:new(curves[i], love.graphics.newImage("demo-images/road.png"), resolution)
     else
-      roads[i] = BezierMesh:new(curves[i], love.graphics.newImage("road2.png"), resolution)
+      roads[i] = BezierMesh:new(curves[i], love.graphics.newImage("demo-images/road2.png"), resolution)
     end
   end
 end
