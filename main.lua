@@ -1,5 +1,5 @@
 local BezierMesh = require "BezierMesh"
-local curves, roads, debug, hide = {}, {}, true, true
+local curves, roads, debug, hide = {}, {}, true, false
 local resolution = 4
 
 function love.load()
@@ -11,6 +11,8 @@ function love.load()
   curves[2] = love.math.newBezierCurve(50, 100, 550, 100, 50, 200, 550, 200)
   curves[2]:translate(-100+300, -100+25)
   curves[3] = love.math.newBezierCurve(10, 205, -500, 205, 790, 205)
+  curves[4] = love.math.newBezierCurve(0, 0, 0, 10, 0, 50, 50, 200)
+  curves[4]:translate(50, 240)
 
   for i = 1, #curves do
     if i % 2 == 0 then

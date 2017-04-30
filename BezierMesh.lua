@@ -21,7 +21,7 @@ function BezierMesh:new(curve, image, resolution, meshMode)
   table.insert(points, 2, points[3])
 
   local vertices = {}
-  local width = image:getHeight()
+  local width = image:getHeight() -- backwards because textures are sideways
   local height = image:getWidth()
   local u = 0
 
@@ -45,7 +45,7 @@ function BezierMesh:new(curve, image, resolution, meshMode)
       vert = {(nv[2]-pv[2])*width/(dist*2), (nv[1]-pv[1])*width/(dist*2)}
     end
 
-    u = u + dist / height
+    u = u + dist / height / 2 -- I have no idea why the division by 2 is needed
 
     table.insert(vertices, {
       v[1]+vert[1], v[2]-vert[2], u, 0
