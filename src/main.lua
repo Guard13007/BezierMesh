@@ -1,5 +1,6 @@
 local BezierMesh = require "BezierMesh"
 local curves, roads, debug, hide = {}, {}, true, true
+local resolution = 4
 
 function love.load()
   love.graphics.setPointSize(3)
@@ -12,7 +13,11 @@ function love.load()
   curves[3] = love.math.newBezierCurve(10, 205, -500, 205, 790, 205)
 
   for i = 1, #curves do
-    roads[i] = BezierMesh:new(curves[i], love.graphics.newImage("road.png"), resolution)
+    if i % 2 == 0 then
+      roads[i] = BezierMesh:new(curves[i], love.graphics.newImage("road.png"), resolution)
+    else
+      roads[i] = BezierMesh:new(curves[i], love.graphics.newImage("road2.png"), resolution)
+    end
   end
 end
 

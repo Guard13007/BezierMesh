@@ -5,7 +5,13 @@ setmetatable(BezierMesh, BezierMesh)
 function BezierMesh:new(curve, image, resolution, meshMode)
   local _object = {}
 
-  image:setWrap("repeat", "clamp")
+  if image then
+    image:setWrap("repeat", "clamp")
+  end
+
+  if not resolution then
+    resolution = 4
+  end
 
   local points = curve:render(resolution)
 
@@ -15,7 +21,8 @@ function BezierMesh:new(curve, image, resolution, meshMode)
   table.insert(points, 2, points[3])
 
   local vertices = {}
-  local width = image:getWidth()
+  local width = image:getHeight()
+  local height = image:getWidth()
   local u = 0
 
   for x = 1, #points - 1, 2 do
@@ -38,7 +45,7 @@ function BezierMesh:new(curve, image, resolution, meshMode)
       vert = {(nv[2]-pv[2])*width/(dist*2), (nv[1]-pv[1])*width/(dist*2)}
     end
 
-    u = u + dist / width
+    u = u + dist / height
 
     table.insert(vertices, {
       v[1]+vert[1], v[2]-vert[2], u, 0
@@ -58,7 +65,10 @@ function BezierMesh:new(curve, image, resolution, meshMode)
   else
     _object.mesh = love.graphics.newMesh(vertices, "strip", "static")
   end
-  _object.mesh:setTexture(image)
+
+  if image then
+    _object.mesh:setTexture(image)
+  end
 
   setmetatable(_object, { __index = meshObject })
 
